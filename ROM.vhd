@@ -44,10 +44,10 @@ begin
         when "1001" => data <= my_rom(09);
         when "1010" => data <= my_rom(10);
         when "1011" => data <= my_rom(11);
-	when "1100" => data <= my_rom(12);
-	when "1101" => data <= my_rom(13);
-	when "1110" => data <= my_rom(14);
-	when "1111" => data <= my_rom(15);
+	    when "1100" => data <= my_rom(12);
+	    when "1101" => data <= my_rom(13);
+	    when "1110" => data <= my_rom(14);
+	    when "1111" => data <= my_rom(15);
         when others => data <= "0001010101";
        end case;
   end process;
