@@ -7,7 +7,7 @@ entity usertop is
 port (
 CLOCK_50:in std_logic; -- para uso na placa
 --CLK_500Hz:in std_logic; -- para uso no emulador
---CLK_1Hz:in std_logic; -- para uso no emulador
+CLK_1Hz:in std_logic; -- para uso no emulador
 KEY:in std_logic_vector(3 downto 0);
 SW:in std_logic_vector(17 downto 0);
 LEDR:out std_logic_vector(17 downto 0);
@@ -43,6 +43,7 @@ component ButtonSync is
 		KEY0, KEY1, CLK: in std_logic;
 		BTN0, BTN1: out std_logic
 	);
+
 end component;
 
 	signal R1, R2, E1, E2, E3, E4, E5: std_logic;   -- sinais de controle
@@ -53,7 +54,7 @@ begin
 
 PM_datapath: datapath port map(
 											SW => SW(9 downto 0),
-											CLOCK_500 => CLOCK_500, -- CLOCK_50 na placa e CLK_500Hz no emulador
+											CLOCK_50 => CLOCK_50, -- CLOCK_50 na placa e CLK_500Hz no emulador
 											CLK_1Hz => CLK_1Hz,  -- deixar assim para possível uso no emulador
 											R1 => R1,
 											R2 => R2,

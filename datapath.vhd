@@ -161,6 +161,7 @@ signal N_unsigned: unsigned(3 downto 0);
 signal SeqDigitada, ComparaSelDig, SelecionadaROM, EntradaLEDS: std_logic_vector(9 downto 0); -- 10 bits
 signal reg1_output: std_logic_vector(7 downto 0);
 signal reg2_output: std_logic_vector(9 downto 0);
+signal rom_data : std_logic_vector(9 downto 0); -- Saída da ROM (10 bits)
 
 begin
 
@@ -214,17 +215,29 @@ port map (
     Q => reg2_output 
 );
 
-
-
 -------------------ELEMENTOS DE MEMORIA-------------------------
 
 -- a fazer pel@ alun@
+
+-- Instância da ROM
+ROM_inst : ROM
+port map (
+    address => Level_code, -- Conecta os 4 bits do Level_code ao endereço da ROM
+    data  => rom_data    -- Saída da ROM conectada ao sinal rom_data
+);
+
 
 ---------------------MULTIPLEXADORES----------------------------
 
 -- a fazer pel@ alun@
 
 -------------------COMPARADORES E SOMA--------------------------
+comp_inst : comp
+port map (
+    seq_user => reg2_output, -- Sequência do registrador de 10 bits (digitada pelo usuário)
+    seq_reg  => rom_data,    -- Sequência da ROM
+    seq_mask => SeqDigitada  -- Máscara de comparação (saída)
+);
 
 -- a fazer pel@ alun@
         
