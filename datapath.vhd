@@ -36,20 +36,18 @@ end component;
 ------------------------CONTADORES------------------------------
 
 component counter_time is
-port(Enable, Reset, CLOCK: in std_logic;
-		load: in std_logic_vector(3 downto 0);
+port(R, E, clock: in std_logic;
 		end_time: out std_logic;
-		tempo: out std_logic_vector(3 downto 0)
+		tempo: out std_logic_vector(3 downto 0);
+		load: in std_logic_vector(3 downto 0)
 		);
 end component;
 
-component counter0to10 is
-port(
-    Enable, Reset, CLOCK: in std_logic;
-	Round: out std_logic_vector(3 downto 0);
-	end_round: out std_logic
-	);
-			
+component counter_round is
+port(R, E, clock: in std_logic;
+		end_round: out std_logic;
+		conta_round : out std_logic_vector(3 downto 0)
+		);
 end component;
 
 -------------------ELEMENTOS DE MEMORIA-------------------------
@@ -157,8 +155,8 @@ end component;
 --============================================================--
 
 signal selMux23, selMux45, end_game_interno, end_round_interno, clk_1, enableRegFinal: std_logic; --1 bit
-signal Round, Level_time, Level_code, SaidaCountT, SomaDigitada, SomaSelDig, CounterTMux: std_logic_vector(3 downto 0); -- 4 bits
-signal decMuxCode, decMuxRound, muxMux2, muxMux3, decMux4, Tempo, t, r, n: std_logic_vector(6 downto 0); -- 7 bits
+signal Round, Level_time, Level_code, SaidaCountT,Tempo, SomaDigitada, SomaSelDig, CounterTMux: std_logic_vector(3 downto 0); -- 4 bits
+signal decMuxCode, decMuxRound, muxMux2, muxMux3, decMux4, t, r, n: std_logic_vector(6 downto 0); -- 7 bits
 signal SomaSelDig_estendido,SeqLevel, RegFinal, valorfin_vector, MuxSelDig: std_logic_vector(7 downto 0); -- 8 bits
 signal N_unsigned: unsigned(3 downto 0);
 signal SeqDigitada, ComparaSelDig, SelecionadaROM, EntradaLEDS: std_logic_vector(9 downto 0); -- 10 bits
@@ -166,11 +164,29 @@ signal SeqDigitada, ComparaSelDig, SelecionadaROM, EntradaLEDS: std_logic_vector
 begin
 
 
-DIV: Div_Freq port map (CLOCK_50, R2, clk_1); -- Para teste no emulador, comentar essa linha e usar o CLK_1Hz
+DIV: Div_Freq 
+port map (CLOCK_50, R2, clk_1); -- Para teste no emulador, comentar essa linha e usar o CLK_1Hz
 
 ------------------------CONTADORES------------------------------
 
--- a fazer pel@ alun@
+timer : Counter_time 
+port map (  R => R1 ,
+	  E => E2 ,
+	  clock => clk_1 ,
+	  end_time => end_time , 
+	  tempo => Tempo ,
+	  load => Level_time
+	  );
+
+
+Dut : Counter_round
+port map (
+      R => R2 ,
+	  E => E3 ,
+	  clock => CLOCK_50 ,
+	  end_round => end_round , 
+	  conta_round => Round 
+);
 
 -------------------ELEMENTOS DE MEMORIA-------------------------
 
