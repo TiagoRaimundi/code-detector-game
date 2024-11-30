@@ -19,15 +19,11 @@ begin
     begin
         if R='1' then
             valor <= "0000"; -- De 0
-            end_round <= '0';
-        elsif clock'event and clock= '1' then
-			if E='1' then
-                if valor = "1010" then -- Até 10
-                    end_round <= '1';
-                else valor <= valor + 1;
-                end if;
-            end if;
+            
+        elsif clock'event and clock= '1' and E = '1' then
+			valor <= valor + 1;
         end if;
     end process;
+    end_round <= '1' when valor = "1010" else '0';
     conta_round <= valor;
 end circuito;

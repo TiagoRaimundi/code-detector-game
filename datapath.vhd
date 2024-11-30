@@ -241,7 +241,7 @@ begin
     seletor_mux_hex3e2 <= R1 xor R2;
     
     seletor_registrador <= E5 or E4;
-    mux8_entrada0 <= "1010" & soma_out; -- MSB: "1010", LSB: sa?da do bloco SOMA
+    mux8_entrada0 <= "1010" & soma_out; 
     mux8_entrada1 <= "000" & end_game_interno & not Round;
 ------------------------CONTADORES------------------------------
 
@@ -401,7 +401,7 @@ port map (
     soma => soma_out_Reg,  -- Soma calculada dos bits do usuário
     status => sw_erro_internal           -- Saída para indicar erro
 );
-sw_erro <= not(sw_erro_internal);
+sw_erro <= not (sw_erro_internal);
 
 -- Comparador para verificar fim de jogo (end_game)
 comp_igual4_endgame: comp_igual4

@@ -21,7 +21,7 @@ begin
             valor <= "0000"; -- De 0
             end_time <= '0';
         elsif clock'event and clock= '1' then
-			if E='1' then
+			if E = '1' then
                 if valor = load then -- Até 10
                     end_time <= '1';
                 else valor <= valor + 1;
